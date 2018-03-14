@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import { prettyPrintJson, queryApi } from '../utils';
+import { fetchAndSetData } from '../utils';
 import { connect } from 'react-redux';
-import { getStore } from '../data/dataStore';
+import { setCustomersApiData } from '../data/dataStore';
 
 export class Customers extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            data: {}
-        };
-
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(event) {
-        queryApi(this.props.apiUrl + "/customers/123")
-            .then(data => this.setState({data: data}))
-            .catch(e => console.error(e));
+        fetchAndSetData(this.props.apiUrl + "/customers/123", this.props.setData);
     }
 
     render() {
@@ -26,16 +20,23 @@ export class Customers extends Component {
                 <p>GET request: /customers/(customerID)</p>
                 <p>Get customer details by ID.</p>
                 <button onClick={this.handleClick}>Try !</button>
-                {prettyPrintJson(this.state.data)}
+                <pre>{JSON.stringify(this.props.data, null, 2)}</pre>
             </div>
         );
     }
 }
 
-export default connect(mapStateToProps)(Customers);
+export default connect(mapStateToProps, mapDispatchToProps)(Customers);
 
 function mapStateToProps(state) {
     return {
-        apiUrl: state.apiUrl
+        apiUrl: state.apiUrl,
+        data: state.customersApiData
     };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        setData: data => dispatch(setCustomersApiData(data))
+    }
 }
