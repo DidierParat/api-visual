@@ -5,15 +5,11 @@ import { setApiUrl } from '../data/dataStore';
 export class ApiUrlInput extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            onChangeApiUrl: props.onChangeApiUrl
-        };
-
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event) {
-        this.state.onChangeApiUrl(event.target.value);
+        this.props.onChangeApiUrl(event.target.value);
     }
 
     render() {
