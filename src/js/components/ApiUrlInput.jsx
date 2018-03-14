@@ -20,7 +20,7 @@ export class ApiUrlInput extends Component {
         return (
             <p>
                 <label>API URL:</label>
-                <input onChange={this.handleChange} />
+                <input defaultValue={this.props.apiUrl} onChange={this.handleChange} />
             </p>
         );
     }
@@ -29,7 +29,9 @@ export class ApiUrlInput extends Component {
 export default connect(mapStateToProps, mapDispatchToProps)(ApiUrlInput);
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        apiUrl: state.apiUrl
+    };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -15,7 +15,8 @@ export class Customers extends Component {
 
     handleClick(event) {
         queryApi(this.props.apiUrl + "/customers/123")
-            .then(data => this.setState({data: data}));
+            .then(data => this.setState({data: data}))
+            .catch(e => console.error(e));
     }
 
     render() {

@@ -12,7 +12,7 @@ const store = createStore(reducer);
 
 function defaultState() {
     return {
-        apiUrl: {}
+        apiUrl: "https://1l3m2p0.restletmocks.net/"
     };
 }
 
